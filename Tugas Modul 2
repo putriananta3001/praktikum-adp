@@ -1,0 +1,42 @@
+print("Program Sederhana Pembelian Paket Makanan Online")
+print("Nama : Dwi Putri Ananta")
+print("NIM : 2310431003")
+print()
+
+print("Paket A:Rp25000")
+print("Paket B:Rp30000")
+print("Paket C:Rp45000")
+print()
+
+print("Makanan yang anda pilih:")
+makanan = input()
+if makanan == "Paket A":
+    a = 25000
+else:
+    if makanan == "Paket B":
+        b = 30000
+    else:
+        if makanan == "Paket C":
+            c = 45000
+        else:
+            print("Makanan yg tidak dipilih")
+print("Makanan anda adalah :")
+print(makanan)
+print("Dengan harga :Rp")
+harga = float(input())
+print("Jarak dari rumah ke restoran")
+jarak = int(input())
+if jarak < 500:
+    ongkir = 0
+else:
+    if jarak < 15000:
+        ongkir = 10000
+    else:
+        if jarak > 1500:
+            ongkir = 20000
+jarak = ongkir
+print("Harga Ongkir :")
+print(ongkir)
+tPesanan = harga + ongkir
+print("Total Pesanan anda :")
+print(TPesanan)
