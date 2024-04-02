@@ -6,59 +6,49 @@ print()
 
 print("Program Daftar Barang")
 print()
+
 daftar_barang = {
     "Minyak": 17000,
     "Mie": 5000,
     "Gula": 15000,
     "Teh": 10000
- }
+}
 
-def hitung_total(harga_barang, jumlah_barang):
-    total = 0
-    for barang, jumlah in zip(harga_barang, jumlah_barang):
-        total += harga_barang[barang] * jumlah
-    return total
+belanja = []
+while True:
+    barang = input("Masukkan jenis barang (Minyak/Mie/Gula/Teh) atau ketik 'Selesai' untuk mengakhiri: ")
+    if barang == "Selesai":
+        break
+    if barang not in daftar_barang:
+        print("Barang tidak valid. Silakan masukkan barang yang valid.")
+        continue
+    jumlah = int(input("Masukkan jumlah barang yang ingin dibeli: "))
+    belanja.append((barang, jumlah))
 
-def diskon_barang(barang, jumlah):
+total_harga_sebelum_diskon = 0
+for barang, jumlah in belanja:
+    total_harga_sebelum_diskon += daftar_barang[barang] * jumlah
+
+diskon_barang_total = 0
+for barang, jumlah in belanja:
     if barang == "Mie" and jumlah > 5:
-        return 0.15
-    else:
-        return 0
+        diskon_barang_total += 0.15 * daftar_barang[barang] * jumlah
 
-def main():
-    belanja = []
-    while True :
-        barang = input("Masukkan jenis barang (Minyak/Mie/Gula/Teh) atau ketik 'Selesai' untuk mengakhiri: ")
-        if barang == "Selesai":
-            break
-        if barang not in daftar_barang:
-            print("Barang tidak valid. Silakan masukkan barang yang valid.")
-            continue
-        jumlah = int(input("Masukkan jumlah barang yang ingin dibeli: "))
-        belanja.append((barang,jumlah))
+total_harga_setelah_diskon_barang = total_harga_sebelum_diskon - diskon_barang_total
 
-    total_harga_sebelum_diskon = hitung_total(daftar_barang, [jumlah for _, jumlah in belanja])
+if total_harga_setelah_diskon_barang > 300000:
+    diskon_total = 0.1 * total_harga_setelah_diskon_barang
+else:
+    diskon_total = 0
 
-    diskon_barang_total = sum(daftar_barang[barang] * jumlah * diskon_barang(barang, jumlah) for barang, jumlah in belanja)
+total_harga_setelah_diskon_total = total_harga_setelah_diskon_barang - diskon_total
 
-    total_harga_setelah_diskon_barang = total_harga_sebelum_diskon - diskon_barang_total
-
-    if total_harga_setelah_diskon_barang > 300000:
-        diskon_total = 0.1 * total_harga_setelah_diskon_barang
-    else:
-        diskon_total = 0
-
-    total_harga_setelah_diskon_total = total_harga_setelah_diskon_barang - diskon_total
-
-    print("\n=== Nota Pembelian ===")
-    for barang, jumlah in belanja:
-        print(f"{barang}: {jumlah} pcs x Rp {daftar_barang[barang]} = Rp {jumlah * daftar_barang[barang]}")
-    print("-----------------------")
-    print(f"Total harga sebelum diskon: Rp {total_harga_sebelum_diskon}")
-    print(f"Total diskon untuk barang: Rp {diskon_barang_total}")
-    print(f"Total harga setelah diskon barang: Rp {total_harga_setelah_diskon_barang}")
-    print(f"Diskon total belanja: Rp {diskon_total}")
-    print(f"Total harga setelah diskon total: Rp {total_harga_setelah_diskon_total}")
-
-if _name_ == "_main_":
-    main()
+print("\n=== Nota Pembelian ===")
+for barang, jumlah in belanja:
+    print(f"{barang}: {jumlah} pcs x Rp {daftar_barang[barang]} = Rp {jumlah * daftar_barang[barang]}")
+print("-----------------------")
+print(f"Total harga sebelum diskon: Rp {total_harga_sebelum_diskon}")
+print(f"Total diskon untuk barang: Rp {diskon_barang_total}")
+print(f"Total harga setelah diskon barang: Rp {total_harga_setelah_diskon_barang}")
+print(f"Diskon total belanja: Rp {diskon_total}")
+print(f"Total harga setelah diskon total: Rp {total_harga_setelah_diskon_total}")
