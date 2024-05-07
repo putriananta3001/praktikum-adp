@@ -1,0 +1,76 @@
+print("Nama : Dwi Putri Ananta")
+print("NIM :  2310431003")
+print("Shift 3")
+print("Tugas Array 2d")
+print()
+
+N = int(input("Masukkan jumlah kolom × baris untuk matriks A dan B : "))
+print("Masukkan Elemen Matriks A (Ukuran N x N)")
+Matriks_A = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        elemen = int(input(f"Masukkan elemen baris {i+1}, kolom {j+1}: "))
+        Baris.append(elemen)
+    Matriks_A.append(Baris)
+print()        
+
+print("Masukkan Elemen Matriks B (Ukuran N x N)")
+Matriks_B = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        elemen = int(input(f"Masukkan elemen baris {i+1}, kolom {j+1}: "))
+        Baris.append(elemen)
+    Matriks_B.append(Baris)
+print()
+
+print("Matriks_A =[")
+for Baris in Matriks_A:
+    print(Baris)
+print("]") 
+print("Matriks_B =[")
+for Baris in Matriks_B:
+    print(Baris)
+print("]")
+print()
+
+Matriks_C = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        total = 0
+        for k in range(N):
+            total += Matriks_A[i][k] * Matriks_B[k][j]
+        Baris.append(total)
+    Matriks_C.append(Baris)
+
+print("Matriks C (Hasil perkalian matriks A dan B):")
+for Baris in Matriks_C:
+    print(Baris)
+print()
+
+Matriks_A_transpose = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        Baris.append(Matriks_A[j][i])
+    Matriks_A_transpose.append(Baris)
+
+Matriks_B_transpose = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        Baris.append(Matriks_B[j][i])
+    Matriks_B_transpose.append(Baris)
+
+Matriks_D = []
+for i in range(N):
+    Baris = []
+    for j in range(N):
+        Baris.append(Matriks_A_transpose[i][j] + Matriks_B_transpose[i][j])
+    Matriks_D.append(Baris)
+
+print("Hasil penjumlahan transpose matriks A dan B (matriks D):")
+for Baris in Matriks_D:
+    print(Baris)
