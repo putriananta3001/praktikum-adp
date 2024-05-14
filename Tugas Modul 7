@@ -1,0 +1,56 @@
+print("Nama : Dwi Putri Ananta")
+print("NIM :  2310431003")
+print("Shift 3")
+print("Tugas Function")
+print()
+
+def input_data(n):
+    data = []
+    for i in range(n):
+        nilai_input = float(input("Masukkan data ke-{}: ".format(i+1)))
+        data.append(nilai_input)
+    return data
+    
+def hitung_rata_rata(data):
+    return sum(data) / len(data)
+
+def hitung_modus(data):
+    frekuensi = {}
+    for nilai in data:
+        if nilai in frekuensi:
+            frekuensi[nilai] += 1
+        else:
+            frekuensi[nilai] = 1
+    
+    frekuensi_tertinggi = 0
+    modus = None
+    for nilai, jumlah in frekuensi.items():
+        if jumlah > frekuensi_tertinggi:
+            frekuensi_tertinggi = jumlah
+            modus = nilai
+    return modus
+
+def hitung_varians(data, rata_rata):
+    varians = sum((x - rata_rata) ** 2 for x in data) / len(data)
+    return varians
+
+def tampilkan_hasil(rata_rata, modus, varians):
+    print("| Rata-rata | {:.2f} |".format(rata_rata))
+    print("| Modus     | {:.2f} |".format(modus))
+    print("| Varians   | {:.2f} |".format(varians))
+
+def main():
+    n = 0
+    while n <= 0:
+        n = int(input("Masukkan jumlah data: "))
+        if n <= 0:
+            print("Jumlah data harus lebih dari 0.")
+    
+    data = input_data(n)
+    rata_rata = hitung_rata_rata(data)
+    modus = hitung_modus(data)
+    varians = hitung_varians(data, rata_rata)
+    
+    tampilkan_hasil(rata_rata, modus, varians)
+
+main()
