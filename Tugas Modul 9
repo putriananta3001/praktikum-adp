@@ -1,0 +1,47 @@
+import os
+from termcolor import colored, cprint
+os.system('cls')
+
+def cetak_merah(spasi=True):
+    cprint('    ', 'red', 'on_red', end=" ")
+    if spasi:
+        print(' ', end="")
+
+def cetak_lebar_merah():
+    cprint('         ', 'red', 'on_red')
+
+def cetak_abu(spasi=True):
+    cprint('    ', 'grey', 'on_dark_grey', end=" ")
+    if spasi:
+        print(' ', end="")
+
+def cetak_baris_pertama_kedua():
+    for _ in range(4):
+        cetak_merah()
+    cetak_lebar_merah()
+
+def cetak_baris_ketiga():
+    for _ in range(3):
+        cetak_merah()
+    print(" ")
+
+def cetak_baris_keempat():
+    for _ in range(3):
+        cetak_merah()
+    cetak_abu()
+    cprint('    ', 'red', 'on_red')
+
+def cetak_baris_kelima_sampai_ketujuh():
+    for _ in range(3):
+        cetak_merah()
+        print("      ", end="")
+        cetak_merah(spasi=False)
+        print('',end=' ')
+        cetak_abu()
+        cprint('    ', 'red', 'on_red')
+
+cetak_baris_pertama_kedua()
+cetak_baris_pertama_kedua()
+cetak_baris_ketiga()
+cetak_baris_keempat()
+cetak_baris_kelima_sampai_ketujuh()
