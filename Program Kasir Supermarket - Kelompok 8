@@ -1,0 +1,97 @@
+import os
+import time
+
+FILE_NAME = 'stok_barang.txt'
+
+def tampilkan_menu():
+    print("\n=== Menu ===")
+    print("1. Kelola Stok Barang")
+    print("2. Kasir")
+    print("3. Keluar")
+    pilihan = input("Pilih menu (1-3): ")
+    return pilihan
+
+def tambah_stok(stok_barang):
+    nama_barang = input("Masukkan nama barang: ")
+    harga_barang = float(input("Masukkan harga satuan barang: "))
+    stok_barang[nama_barang] = {'stok': 0, 'harga': harga_barang}
+    tambahan = int(input("Masukkan jumlah tambahan stok: "))
+    stok_barang[nama_barang]['stok'] += tambahan
+    print(f"Stok barang '{nama_barang}' berhasil ditambahkan sebanyak {tambahan}.")
+    simpan_stok_ke_file(stok_barang)
+
+def tampilkan_stok(stok_barang):
+    print("\n=== Stok Barang ===")
+    for barang, info in stok_barang.items():
+        print(f"{barang}: Stok: {info['stok']}, Harga Satuan: {info['harga']}")
+
+def tampilkan_struk(belanjaan, total_belanja):
+    print("\n=== Struk Belanja ===")
+    for item in belanjaan:
+        nama_barang, jumlah, harga = item
+        total_harga = jumlah * harga
+        print(f"{nama_barang}: {jumlah} x {harga} = {total_harga}")
+    print(f"\nTotal Belanja: {total_belanja}")
+
+def transaksi_kasir(stok_barang):
+    total_belanja = 0
+    belanjaan = []
+    while True:
+        tampilkan_stok(stok_barang)
+        nama_barang = input("\nMasukkan nama barang yang dibeli (ketik 'selesai' untuk menyelesaikan transaksi): ")
+        if nama_barang.lower() == 'selesai':
+            break
+        if nama_barang not in stok_barang:
+            print("Barang tidak ditemukan dalam stok.")
+            continue
+        jumlah = int(input("Masukkan jumlah yang dibeli: "))
+        if jumlah > stok_barang[nama_barang]['stok']:
+            print("Jumlah melebihi stok yang tersedia.")
+            continue
+        harga_barang = stok_barang[nama_barang]['harga']
+        total_harga = jumlah * harga_barang
+        print(f"Total harga untuk {jumlah} {nama_barang}: {total_harga}")
+        stok_barang[nama_barang]['stok'] -= jumlah
+        total_belanja += total_harga
+        belanjaan.append((nama_barang, jumlah, harga_barang))
+    simpan_stok_ke_file(stok_barang)
+    data = 1
+    return belanjaan, total_belanja, data
+
+def simpan_stok_ke_file(stok_barang):
+    with open(FILE_NAME, 'w') as file:
+        for barang, info in stok_barang.items():
+            file.write(f"{barang},{info['stok']},{info['harga']}\n")
+
+def baca_stok_dari_file():
+    stok_barang = {}
+    if os.path.exists(FILE_NAME):
+        with open(FILE_NAME, 'r') as file:
+            for line in file:
+                nama_barang, stok, harga = line.strip().split(',')
+                stok_barang[nama_barang] = {'stok': int(stok), 'harga': float(harga)}
+    return stok_barang
+
+def main():
+    data = 0
+    stok_barang = baca_stok_dari_file()
+    while True:
+        pilihan = tampilkan_menu()
+        if data == 1:
+            tampilkan_struk(b, t)
+        if pilihan == '1':
+            tambah_stok(stok_barang)
+        elif pilihan == '2':
+            b,t,data = transaksi_kasir(stok_barang)
+        elif pilihan == '3':
+            print("Terima kasih telah berbelanja di toko kami, barang yang anda beli tidak dapat di tukarkan kembali ")
+            break
+        else:
+            print("Pilihan tidak valid! Silakan coba lagi.")
+
+os.system('cls')
+print("LOADING...")
+time.sleep(2)
+os.system('cls')
+
+main()
